@@ -1,4 +1,4 @@
-# Go here https://sean-7777.github.io/URL-Parameters/. :grin:
+# Go here https://sean-7777.github.io/URL-Parameters/ :grin:
 <br>
 <br>
 <br>
