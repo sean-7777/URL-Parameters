@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Parameters</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="url-parameters">URL Parameters</h1>
+<h2 id="what-are-url-parameters">What are URL Parameters?</h2>
+<p>URL Parameters are also known as query strings or URL variables. They are something like this, <code>your-website.com/welcome?fname=John&amp;lname=Doe&amp;age=23</code></p>
+<h2 id="how-do-you-put-it-in-a-url">How do you put it in a URL?</h2>
+<p>It’s simple. Just follow these rules</p>
+<ol>
+<li>First, decide if you want to put it on a homepage (<code>domain.com</code>, <code>sdomain.domain.com</code>, etc) or a subpage (<code>domain.com/subpage</code>). If on a homepage just put a slash. If you want it to be on a subpage then don’t put anything.</li>
+<li>Put a &amp; after the URL to start the URL parameters section.</li>
+<li>For each URL Parameter you simply put in the parameter name, then a equals sign, and last, the parameter value. If you want to do multiple parameters, put an &amp; in between.</li>
+<li>Here are some examples.
+<ol>
+<li><code>site.com/?hello=True&amp;something-else=i7g8</code></li>
+<li><code>site.sitte.com/?no=no</code></li>
+<li><code>site.com/page?chrachters=692</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="how-do-you-access-these-parameters">How do you access these parameters?</h2>
+<p>First, before we get into this question, I want to make something clear: <strong>You do not need to create a parameter, you just need to put it in the URL and it is created.</strong> Now, back to the question. There a two ways to do this,</p>
+<ol>
+<li>
+<p><strong>I do not recommend this method.</strong></p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token comment">// The URL is site.com/page?welcome=yes</span>
+<span class="token keyword">var</span> parameter <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>search
+<span class="token comment">// Parameter is equal to ?welcome=yes</span>
+</code></pre>
+</li>
+<li>
+<p>Now of course there is a better method like a api right? Well yes, it’s called URLSearchParams. To get started, put this line in your code.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token comment">// up is U in URl and p parameter</span>
+<span class="token keyword">var</span> up <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URLSearchParams</span><span class="token punctuation">(</span>windows<span class="token punctuation">.</span>location<span class="token punctuation">.</span>window<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Then, below is a list of the most commonly used methods. (Assuming the URL is <code>hello.com/welcome?post=1234&amp;action=edit</code>)</p>
+<ol>
+<li><code>has</code><br>
+This method detects if the URL contains a parameter.<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">var</span> has <span class="token operator">=</span> up<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token string">'post'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// True</span>
+<span class="token keyword">var</span> password <span class="token operator">=</span> up<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token string">'password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// False</span>
+</code></pre>
+</li>
+<li><code>get</code><br>
+Takes the value of a parameter.<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">var</span> action <span class="token operator">=</span> urlParams<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"action"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//"edit"</span>
+</code></pre>
+</li>
+<li><code>getall</code><br>
+Same as get instead in full.<pre class=" language-js"><code class="prism  language-js">urlParams<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ["edit"]</span>
+</code></pre>
+</li>
+<li><code>tostring</code><br>
+The full parameter section as in the URL.<pre class=" language-js"><code class="prism  language-js">urlParams<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// "?post=1234&amp;action=edit"</span>
+</code></pre>
+</li>
+<li><code>append</code><br>
+Adds a parameter to the parameter section<pre class=" language-js"><code class="prism  language-js">urlParams<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'active'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// "?post=1234&amp;action=edit&amp;active=1"</span>
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>The URLSearchParams api is ideal, but not all browsers support it. So if you want to make it have more compatibility, then you can use pure Js.<br>
+The function is the following.</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token keyword">function</span> <span class="token function">getUrlParameterByName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/[\[]/</span><span class="token punctuation">,</span> <span class="token string">'\\['</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/[\]]/</span><span class="token punctuation">,</span> <span class="token string">'\\]'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">var</span> regex <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token string">'[\\?&amp;]'</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'=([^&amp;#]*)'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">var</span> results <span class="token operator">=</span> regex<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>location<span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> results <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token string">''</span> <span class="token punctuation">:</span> 
+	<span class="token function">decodeURIComponent</span><span class="token punctuation">(</span>results<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/\+/g</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Here is an example. (The URL is the same as above, <code>hello.com/welcome?post=1234&amp;action=edit</code>)</p>
+<pre class=" language-js"><code class="prism  language-js"><span class="token function">getUrlParameterByName</span><span class="token punctuation">(</span><span class="token string">'post'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// "1234"</span>
+<span class="token function">getUrlParameterByName</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// "edit"</span>
+</code></pre>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+<h6 id="credit-httpsdavidwalsh.namequery-string-javascript">Credit: <a href="https://davidwalsh.name/query-string-javascript">https://davidwalsh.name/query-string-javascript</a></h6>
+</li>
+</ol>
+</div>
+</body>
+
+</html>
